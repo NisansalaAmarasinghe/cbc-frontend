@@ -4,6 +4,8 @@ import Testing from './components/testing'
 import LoginPage from './pages/loginPage'
 import HomePage from './pages/homePage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import AdminHomePage from './pages/adminHomePage'
+import SignUpPage from './pages/signInPage'
 
 
 function App() {
@@ -17,7 +19,9 @@ function App() {
       <Routes path="/*">
         <Route path="/" element={<HomePage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/*" element={<h1>404 error</h1>}/>
+        <Route path="/signup" element={<SignUpPage/>}/>
+        <Route path="/admin/*" element={<AdminHomePage/>}/>
+        <Route path="/*" element={<HomePage/>}/>
       </Routes>
     
       </BrowserRouter>
