@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import { FaTachometerAlt } from "react-icons/fa"; // Dashboard Icon (Replaced)
 import { MdProductionQuantityLimits } from "react-icons/md"; // Products Icon
 import { FaShoppingCart } from "react-icons/fa"; // Orders Icon
@@ -51,6 +51,13 @@ export default function AdminHomePage() {
                     {/* Placeholder content, you can replace it later */}
                     <div className="text-center text-gray-500">Select an option from the menu to get started.</div>
                 </div>
+                <Routes path="/*">
+                    <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
+                    <Route path="/products" element={<h1>Products</h1>}/>
+                    <Route path="/orders" element={<h1>Orders</h1>}/>
+                    <Route path="/customers" element={<h1>Customers</h1>}/>
+                    <Route path="/*" element={<h1>404 Not found the page</h1>}/>
+                </Routes>
             </div>
         </div>
     );
