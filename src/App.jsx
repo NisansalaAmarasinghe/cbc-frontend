@@ -3,6 +3,8 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Testing from './components/testing'
+import LoginPage from './pages/loginPage'
+import HomePage from './pages/homePage'
 
 
 function App() {
@@ -10,7 +12,7 @@ function App() {
 
   return (
     <>
-      <Testing></Testing>
+      <HomePage/>
     </>
   )
 }
