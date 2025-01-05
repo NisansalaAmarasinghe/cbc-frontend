@@ -5,7 +5,7 @@ export default function LoginPage() {
         <div className='w-[359px] h-[359px] border border-black'>
             <div className='w-36 h-36 bg-blue-600'>
             </div>
-            <div className='w-36 h-36 bg-yellow-600 fixed right-0'>
+            <div className='w-36 h-36 bg-yellow-600 fixed right-[10px] bottom-[10px]'>
             </div>
         </div>
     );
