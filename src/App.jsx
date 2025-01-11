@@ -4,6 +4,7 @@ import LoginPage from './pages/loginPage'
 import HomePage from './pages/homePage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminHomePage from './pages/adminHomePage'
+import UserData from './components/userData'
 
 
 
@@ -18,7 +19,7 @@ function App() {
       <Routes path="/*">
         <Route path="/" element={<HomePage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/signup" element={<HomePage/>}/>
+        <Route path="/signup" element={<UserData/>}/>
         {/* methna prashne thibbe path ekak ethanin ehata ynwa nam wild card (*) dann oni eka nathi nisa */}
         <Route path="/admin/*" element={<AdminHomePage/>}/>
       
