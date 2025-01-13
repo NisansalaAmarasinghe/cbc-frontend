@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -5,6 +6,19 @@ export default function LoginPage() {
 
     const [email,setEmail]=useState("Your email")
     const [password,setPassword]=useState("")
+
+    function login(){
+        
+        axios.post("http://localhost:5000/api/users/login",{
+            email : email,
+            password : password
+        }).then(
+            (res)=>{
+                console.log(res)
+            }
+        )
+
+    }
 
     return (
         <div className='flex justify-center items-center w-full h-screen bg-purple-300'>
@@ -14,15 +28,18 @@ export default function LoginPage() {
             <span>Email</span>
             <input defaultValue={email} onChange={(e)=>
             {
-                console.log(e.target.value)
-
+                setEmail(e.target.value)
             }
             } />
             
             <span>Password</span>
-            <input type="password" defaultValue={password}/>
+            <input type="password" defaultValue={password} onChange={(e)=>
+                {
+                    setPassword(e.target.value)
+                }
+            }/>
             
-            <button className='bg-white'>Login</button>
+            <button onClick={login} className='bg-white'>Login</button>
             </div>
 
         </div>
