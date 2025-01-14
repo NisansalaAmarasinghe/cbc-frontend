@@ -15,14 +15,25 @@ export default function LoginPage() {
         }).then(
             (res)=>{
                 console.log(res)
+
+                if(res.data.user == null){
+                    alert(res.data.message)
+                    return
+                }
+                localStorage.setItem("token",res.data.token)
+                if(res.data.user.type == "admin"){
+                    window.location.href = "/admin"
+                }else{
+                    window.location.href = "/"
+                }
             }
         )
 
     }
 
     return (
-        <div className='flex justify-center items-center w-full h-screen bg-purple-300'>
-            <div className='flex flex-col justify-center items-center w-[450px] h-[450px] bg-purple-500 border border-black'>
+        <div className='flex justify-center items-center w-full h-screen bg-purple-400'>
+            <div className='flex flex-col justify-center items-center w-[450px] h-[450px] bg-purple-300 border border-black'>
             <img src='/logo.png' className='rounded-full w-[100px]'/>
             
             <span>Email</span>
