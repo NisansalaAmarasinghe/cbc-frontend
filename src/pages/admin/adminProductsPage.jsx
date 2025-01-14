@@ -1,79 +1,68 @@
-import axios from "axios"
-import { useEffect, useState } from "react"
-export default function AdminProductsPage(){
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { FaPlus, FaTrash } from "react-icons/fa";
+import { FaPencilAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-    const[products,setProducts]=useState([
-        [
-            {
-                "_id": "67824ea6b51170e459cdae5d",
-                "productId": "B1001",
-                "productName": "Hydrating face serum",
-                "altNames": [
-                    "Moisturizing Serum",
-                    "Glow Boast Serum"
-                ],
-                "images": [
-                    "https://example.com/images/serum1.jpg",
-                    "https://example.com/images/serum.alt.jpg"
-                ],
-                "price": 24.99,
-                "lastPrice": 200,
-                "stock": 200,
-                "description": "A lightweight, fastabsorbing serum infused with hydraunic acid and vitamin C to hydrate abd brighten your skin",
-                "__v": 0
-            },
-            {
-                "_id": "6785f55104694ec146f96c1c",
-                "productId": "B1002",
-                "productName": "Hydrating face Mask",
-                "altNames": [
-                    "Moisturizing Mask",
-                    "Glow Boast Serum"
-                ],
-                "images": [
-                    "https://example.com/images/serum1.jpg",
-                    "https://example.com/images/serum.alt.jpg"
-                ],
-                "price": 28.99,
-                "lastPrice": 300,
-                "stock": 100,
-                "description": "A lightweight, fastabsorbing serum infused with hydraunic acid and vitamin C to hydrate abd brighten your skin",
-                "__v": 0
-            }
-        ]
-    ])
+export default function AdminProductsPage() {
+    const [products, setProducts] = useState([]);
 
-    useEffect(()=>{
-        axios.get("http://localhost:5000/api/products").then(
-            (res)=>{
-                console.log(res.data)
-                setProducts(res.data)
-            }
-        )
-    },[]
-)
-    
+    useEffect(() => {
+        axios.get("http://localhost:5000/api/products").then((res) => {
+            setProducts(res.data);
+        });
+    }, []);
 
-    console.log(products)
-
-    return(
-        <div>
-            <h1>Admin Products Page</h1>
-            {
-                products.map(
-                    (product,index)=>{
-                        return(
-                            <div key={product._id}>
-                                {index}
-                                {product.productName}
-                            </div>
-            
-                        )
-                    }
-
-                )
-            }
+    return (
+        <div className="p-6 bg-gray-100 min-h-screen relative">
+            <Link to={"/admin/products/addProduct"} className="absolute right-[25px] bottom-[25px] text-[25px] border border-blue-500 border-[2px] text-blue-500 p-5 rounded-xl hover:bg-blue-300 hover:rounded-full"><FaPlus/></Link>
+            <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
+                Admin Products Page
+            </h1>
+            <div className="overflow-x-auto shadow-md sm:rounded-lg">
+                <table className="table-auto w-full text-sm text-left text-gray-600">
+                    <thead className="bg-gray-200 text-gray-700 uppercase text-xs">
+                        <tr>
+                            <th className="px-6 py-3">Product ID</th>
+                            <th className="px-6 py-3">Product Name</th>
+                            <th className="px-6 py-3">Price</th>
+                            <th className="px-6 py-3">Last Price</th>
+                            <th className="px-6 py-3">Stock</th>
+                            <th className="px-6 py-3">Description</th>
+                            <th className="px-6 py-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {products.map((product, index) => (
+                            <tr
+                                key={index}
+                                className="bg-white border-b hover:bg-gray-50"
+                            >
+                                <td className="px-6 py-4">{product.productId}</td>
+                                <td className="px-6 py-4">{product.productName}</td>
+                                <td className="px-6 py-4 text-green-500 font-semibold">
+                                    ${product.price}
+                                </td>
+                                <td className="px-6 py-4 text-gray-500">
+                                    ${product.lastPrice}
+                                </td>
+                                <td className="px-6 py-4">{product.stock}</td>
+                                <td className="px-6 py-4">
+                                    {product.description}
+                                </td>
+                                <td className="px-6 py-4 flex justify-center space-x-4">
+                                    <button className="text-red-500 hover:text-red-700">
+                                        <FaTrash />
+                                    </button>
+                                    <button className="text-blue-500 hover:text-blue-700">
+                                        <FaPencilAlt />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
-    )
-
+    );
 }
