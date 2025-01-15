@@ -1,20 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaPlus, FaTrash } from "react-icons/fa";
 import { FaPencilAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 export default function AdminProductsPage() {
     const [products, setProducts] = useState([]);
-    const [test, setTest] = useState("Not Pressed");
+    const [productsLoaded,setProductLoaded] = useState(false); //to auto refresh of delete action
+
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/products").then((res) => {
+        if(!productsLoaded){
 
-            console.log("Use effect is running")
-            setProducts(res.data); //run only one time in loading if any functions more
-        });
-    }, [],[test]); //but this dependency array can be load more times with chnage of test variable
+            axios.get("http://localhost:5000/api/products").then((res) => {
+
+                console.log("Use effect is running")
+                setProducts(res.data); //run only one time in loading if any functions more
+                setProductLoaded(true);
+            });
+        }
+        
+    }, [productsLoaded]); //but this dependency array can be load more times with change of variable
 
     return (
         <div className="p-6 bg-gray-100 min-h-screen relative">
@@ -22,23 +29,13 @@ export default function AdminProductsPage() {
             <Link to={"/admin/products/addProduct"} className="absolute right-[25px] bottom-[25px] text-[25px] 
             border border-blue-500 border-[2px] text-blue-500 p-5 rounded-xl hover:bg-blue-300 hover:rounded-full"><FaPlus/></Link>
 
-            <button className="absolute right-[125px] bottom-[25px] text-[25px] 
-            border border-blue-500 border-[2px] text-blue-500 p-5 rounded-xl hover:bg-blue-300 hover:rounded-full" onClick = {()=>{
-                if(test =="Pressed"){
-                    setTest("Not pressed")
-                }else{
-                    setTest("Pressed")
-                }
-            }}>
-            
-            {test}
-
-            </button>
 
             <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
                 Admin Products Page
             </h1>
-            <div className="overflow-x-auto shadow-md sm:rounded-lg">
+
+            {
+                productsLoaded? <div className="overflow-x-auto shadow-md sm:rounded-lg">
                 <table className="table-auto w-full text-sm text-left text-gray-600">
                     <thead className="bg-gray-200 text-gray-700 uppercase text-xs">
                         <tr>
@@ -70,7 +67,24 @@ export default function AdminProductsPage() {
                                     {product.description}
                                 </td>
                                 <td className="px-6 py-4 flex justify-center space-x-4">
-                                    <button className="text-red-500 hover:text-red-700">
+                                    <button className="text-red-500 hover:text-red-700" 
+                                    title="Delete" 
+                                    onClick={()=>{
+                                                    alert(product.productId)
+                                                    const token = localStorage.getItem("token");
+
+                                                    axios.delete(`http://localhost:5000/api/products/${product.productId}`, {
+                                                         headers: {
+                                                                    Authorization: `Bearer ${token}`,
+                                                                 },
+                                                         }).then((res) => {
+                                                                    console.log(res.data);
+                                                                    toast.success("Product deleted successfully");
+                                                                    setProductLoaded(false);
+                                                                        
+                                                            });
+                                                }}  
+                                    >
                                         <FaTrash />
                                     </button>
                                     <button className="text-blue-500 hover:text-blue-700">
@@ -81,7 +95,11 @@ export default function AdminProductsPage() {
                         ))}
                     </tbody>
                 </table>
+            </div>: <div className="w-full h-full flex justify-center items-center">
+                <div className="w-[60px] h-[60px] border-[4px] border-gray-200 border-b-blue-600 animate-spin rounded-full">
+                </div>
             </div>
+            }            
         </div>
     );
 }

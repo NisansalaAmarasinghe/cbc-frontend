@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AdminHomePage from './pages/adminHomePage'
 import UserData from './components/userData'
 import { Toaster } from 'react-hot-toast'
+import FileUploadTest from './pages/test'
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path="/signup" element={<UserData/>}/>
         {/* methna prashne thibbe path ekak ethanin ehata ynwa nam wild card (*) dann oni eka nathi nisa */}
         <Route path="/admin/*" element={<AdminHomePage/>}/>
+        <Route path="/testing" element={<FileUploadTest/>}/>
       
       </Routes>
     

@@ -1,0 +1,5 @@
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxvdnpncHdwZ3d3eGdwdGVncGRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY5NTI4MTAsImV4cCI6MjA1MjUyODgxMH0.15PoLZkrQftS5j-EywhtLMIW-_C-OhfQMPbeLqz-fs8 
+public key
+
+https://lovzgpwpgwwxgptegpdl.supabase.co
+URL
